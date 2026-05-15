@@ -1,8 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
-import { LoginInput } from './dto/login.input';
-import * as bcrypt from 'bcrypt';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { UsersService } from "src/users/users.service";
+import { LoginInput } from "./dto/login.input";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
@@ -15,13 +15,13 @@ export class AuthService {
     // Find user by email
     const user = await this.usersService.findByEmail(input.email);
 
-    if (!user) throw new UnauthorizedException('Ivalid credentials');
+    if (!user) throw new UnauthorizedException("Ivalid credentials");
 
     // Compare password with hashed one in DB
     const isPasswordValid = await bcrypt.compare(input.password, user.password);
 
     if (!isPasswordValid)
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException("Invalid credentials");
 
     // Sign the JWT token
     const token = await this.jwtService.sign({

@@ -7,6 +7,11 @@ type AuthPayload {
   user: User!
 }
 
+input CreateNoteInput {
+  content: String!
+  title: String!
+}
+
 input CreateUserInput {
   email: String!
   password: String!
@@ -24,14 +29,33 @@ input LoginInput {
 }
 
 type Mutation {
+  createNote(input: CreateNoteInput!): Note!
   createUser(input: CreateUserInput!): User!
+  deleteNote(id: String!): Boolean!
   login(input: LoginInput!): AuthPayload!
+  updateNote(input: UpdateNoteInput!): Note!
+}
+
+type Note {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  title: String!
+  updatedAt: DateTime!
+  user: User
+  userId: String!
 }
 
 type Query {
-  authHealthCheck: String!
-  notesHealthCheck: String!
-  usersHealthCheck: String!
+  me: User!
+  myNotes: [Note!]!
+  note(id: String!): Note!
+}
+
+input UpdateNoteInput {
+  content: String
+  id: String!
+  title: String
 }
 
 type User {

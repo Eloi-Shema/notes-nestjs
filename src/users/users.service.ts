@@ -1,7 +1,7 @@
-import { ConflictException, Injectable } from '@nestjs/common';
-import { CreateUserInput } from 'src/dto/create-user.input';
-import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
+import { ConflictException, Injectable } from "@nestjs/common";
+import { CreateUserInput } from "src/dto/create-user.input";
+import { PrismaService } from "src/prisma/prisma.service";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
@@ -14,7 +14,7 @@ export class UsersService {
     });
 
     if (existingEmail) {
-      throw new ConflictException('Email already exists');
+      throw new ConflictException("Email already exists");
     }
 
     // Check if username exists
@@ -25,7 +25,7 @@ export class UsersService {
     });
 
     if (existingUsername) {
-      throw new ConflictException('Username already taken');
+      throw new ConflictException("Username already taken");
     }
 
     // Hash the password
